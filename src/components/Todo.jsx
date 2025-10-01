@@ -2,7 +2,9 @@ import React, { useEffect, useRef } from "react";
 import Todoitems from "./todoitems";
 
 export const Todo = () => {
-  const [todolist, setTodolist] = React.useState([]);
+  const [todolist, setTodolist] = React.useState(
+    localStorage.getItem("todo") ? JSON.parse(localStorage.getItem("todo")) : []
+  );
 
   const inputRef = useRef();
 
@@ -18,7 +20,7 @@ export const Todo = () => {
     const newTodo = {
       id: Date.now(),
       text: inputText,
-      completed: false,
+      complete: false,
     };
     //pakai prev biar dapet value terbaru (previous)
     setTodolist((prev) => [...prev, newTodo]);
@@ -45,7 +47,7 @@ export const Todo = () => {
   };
 
   useEffect(() => {
-    console.log(todolist);
+    localStorage.setItem("todo", JSON.stringify(todolist));
   }, [todolist]);
 
   return (
@@ -77,10 +79,10 @@ export const Todo = () => {
       </div>
 
       <div>
-        {todolist.map((item, index) => {
+        {todolist.map((item) => {
           return (
             <Todoitems
-              key={index}
+              key={item.id}
               Text={item.text}
               id={item.id}
               complete={item.complete}
