@@ -37,7 +37,7 @@ export const Todo = () => {
     setTodolist((prevTodo) => {
       return prevTodo.map((todo) => {
         if (todo.id === id) {
-          return { ...todo, isComplete: !todo.isComplete };
+          return { ...todo, complete: !todo.complete };
         }
         return todo;
       });
@@ -83,7 +83,7 @@ export const Todo = () => {
               key={index}
               Text={item.text}
               id={item.id}
-              isComplete={item.completed}
+              complete={item.complete}
               deleteTodo={deleteTodo}
               toggle={toggle}
             />
